@@ -71,7 +71,7 @@ const Start = () => {
                 width: "max-content",
                 display: "flex",
                 alignItems: "center",
-                padding: "10px",
+                padding: "5px",
                 borderRadius: "50px",
                 border: "none",
                 outline: "none",
@@ -90,7 +90,7 @@ const Start = () => {
                   flex: 1,
                 }}
                 placeholder="Nhập địa điểm"
-                className="fs-5 px-3"
+                className="fs-4 px-3"
               />
               <div
                 style={{
@@ -98,9 +98,8 @@ const Start = () => {
                   borderLeft: "2px solid black",
                   paddingLeft: "20px",
                 }}
-                className="py-3"
               >
-                <span className="fs-5" onClick={() => setToggle(true)}>
+                <span className="fs-4" onClick={() => setToggle(true)}>
                   Giao lưu
                 </span>
               </div>

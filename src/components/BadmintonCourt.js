@@ -4,6 +4,10 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { BsCalendar2HeartFill } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Product from "./Product";
+import { Col, Container, Row } from "react-bootstrap";
 const BadmintonCourt = ({ idName }) => {
   const data = [
     {
@@ -137,81 +141,90 @@ const BadmintonCourt = ({ idName }) => {
   ];
   const filterType = data.filter((item) => item.type === idName);
   return (
-    <div className="d-flex align-items-center justify-content-between gap-5">
-      <div className="d-flex flex-column gap-3" style={{width:'100%'}}>
-        <span>Tìm thấy {filterType.length} hoạt động</span>
+    <div>
+      <Row>
+        <Col sm={8}>
+          <div className="d-flex flex-column gap-3">
+            <strong>Một vài sản phẩm</strong>
+            {idName === "traodoi" ? <Product /> : ""}
 
-        {filterType?.map((inf, index) => {
-          return (
-            <div
-              style={{
-                background: "white",
-                padding: "10px",
-                borderRadius: "20px",
-                width: "100%",
-                boxShadow: "#ccc 1px 1px 10px",
-              }}
-              key={inf.id}
-            >
-              <div className="d-flex gap-3">
-                <Link to={`/badminton/${inf.id}`}>
-                  <div style={{ position: "relative" }}>
-                    <img
-                      src={inf.image}
-                      alt=""
-                      style={{
-                        width: "300px",
-                        borderRadius: "20px",
-                      }}
-                    />
-                    <button
-                      style={{
-                        position: "absolute",
-                        right: "10px",
-                        top: "10px",
-                        borderRadius: "20px",
-                      }}
-                      className="btn btn-danger"
-                    >
-                      {inf.price}
-                    </button>
-                  </div>
-                </Link>
+            <strong>Tìm thấy {filterType.length} hoạt động</strong>
 
-                <div className="d-flex flex-column justify-content-evenly">
-                  <span>Đang xác định vị trí của bạn [{inf.type}]</span>
-                  <Link to={`/badminton/${inf.id}`}>
-                    <h3>{inf.name}</h3>
-                  </Link>
-                  <div>
-                    <FaMapMarkerAlt />
-                    <span>{inf.address}</span>
-                  </div>
-                  <div>
-                    <FaCalendarAlt />
-                    <span>{inf.calendarNow}</span>
-                  </div>
-                  <div>
-                    <BsCalendar2HeartFill />
-                    <span>{inf.calendar}</span>
+            {filterType?.map((inf, index) => {
+              return (
+                <div
+                  style={{
+                    background: "white",
+                    padding: "10px",
+                    borderRadius: "20px",
+                    width: "100%",
+                    boxShadow: "#ccc 1px 1px 10px",
+                  }}
+                  key={inf.id}
+                >
+                  <div className="d-flex gap-3">
+                    <Link to={`/badminton/${inf.id}`}>
+                      <div style={{ position: "relative" }}>
+                        <img
+                          src={inf.image}
+                          alt=""
+                          style={{
+                            width: "300px",
+                            borderRadius: "20px",
+                          }}
+                        />
+                        <button
+                          style={{
+                            position: "absolute",
+                            right: "10px",
+                            top: "10px",
+                            borderRadius: "20px",
+                          }}
+                          className="btn btn-danger"
+                        >
+                          {inf.price}
+                        </button>
+                      </div>
+                    </Link>
+
+                    <div className="d-flex flex-column justify-content-evenly">
+                      <span>Đang xác định vị trí của bạn [{inf.type}]</span>
+                      <Link to={`/badminton/${inf.id}`}>
+                        <h3>{inf.name}</h3>
+                      </Link>
+                      <div>
+                        <FaMapMarkerAlt />
+                        <span>{inf.address}</span>
+                      </div>
+                      <div>
+                        <FaCalendarAlt />
+                        <span>{inf.calendarNow}</span>
+                      </div>
+                      <div>
+                        <BsCalendar2HeartFill />
+                        <span>{inf.calendar}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d251637.95196238213!2d105.6189045!3d9.779349!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1720131593393!5m2!1svi!2s"
-          width="600"
-          height="450"
-          style={{border:0}}
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
+              );
+            })}
+          </div>
+        </Col>
+        <Col sm={4}>
+          <div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d251637.95196238213!2d105.6189045!3d9.779349!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1720131593393!5m2!1svi!2s"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

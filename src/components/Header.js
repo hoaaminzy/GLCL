@@ -1,11 +1,58 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaSearch, FaRegUserCircle, FaMapMarkerAlt } from "react-icons/fa";
-import { Switch, Select } from "antd";
+import {
+  Switch,
+  Select,
+  Dropdown,
+  Space,
+  Modal,
+  Form,
+  Input,
+  Button,
+} from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import icon from "../images/icon.png";
 import { Link, useLocation } from "react-router-dom";
 import Filter1 from "./Filter1";
 import Filter2 from "./Filter2";
 const Header = () => {
+  const dropdownContainerRef = useRef(null);
+  const items = [
+    {
+      label: (
+        <span
+          onClick={() => handleMenuClick("register")}
+          style={{ display: "block", width: "100%" }}
+        >
+          Đăng ký
+        </span>
+      ),
+      key: "0",
+    },
+    {
+      label: (
+        <span
+          onClick={() => handleMenuClick("login")}
+          style={{ display: "block", width: "100%" }}
+        >
+          Đăng nhập
+        </span>
+      ),
+      key: "1",
+    },
+  ];
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalType, setModalType] = useState(null);
+
+  const handleMenuClick = (type) => {
+    setModalType(type);
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setModalType(null);
+  };
   const [activeComponent, setActiveComponent] = useState("Filter1");
   const [name, setName] = useState("Giao lưu");
   const [toggle, setToggle] = useState(false);
@@ -32,11 +79,11 @@ const Header = () => {
 
   const click2 = () => {
     setActiveComponent("Filter2");
-    setName("Trao đổi");
+    setName("Sân đấu");
   };
   const click3 = () => {
     // setActiveComponent("Filter2");
-    setName("Tìm sân");
+    setName("Trao đổi");
   };
   return (
     <div>
@@ -56,7 +103,7 @@ const Header = () => {
       >
         <div className="d-flex align-items-center justify-content-between px-3">
           <div className="d-flex justify-content-between">
-            <Link to='/'>
+            <Link to="/">
               <div style={{ color: "white" }} className="d-flex gap-2">
                 <span className="text-black fs-4">GiaoLưuCầuLông</span>
                 <img src={icon} style={{ width: "40px" }} alt="icon" />
@@ -161,7 +208,7 @@ const Header = () => {
                           </div>
                         </div>
                       </Link>
-                      <Link to="/home/timsan">
+                      <Link to="/home/traodoi">
                         <div
                           className="d-flex align-items-center gap-4"
                           style={{
@@ -173,7 +220,7 @@ const Header = () => {
                         >
                           <FaMapMarkerAlt />
                           <div className="d-flex flex-column justify-content-center">
-                            <span>Tìm sân</span>
+                            <span>Trao đổi</span>
                             <span>Bạn muốn trao đổi</span>
                           </div>
                         </div>
@@ -210,18 +257,190 @@ const Header = () => {
               <span className="fs-5">Ẩn bảng đồ</span>
               <Switch />
             </div>
-            <div
-              className="d-flex align-items-center gap-3"
-              style={{
-                borderRadius: "50px",
-                border: "1px solid black",
-                padding: "8px 20px",
-              }}
-            >
-              <span style={{ fontSize: "20px", fontWeight: "bold" }}>Bon</span>
-              <FaRegUserCircle className="fs-2" />
+
+            {/* <div
+                className="d-flex align-items-center gap-3"
+                style={{
+                  borderRadius: "50px",
+                  border: "1px solid black",
+                  padding: "8px 20px",
+                }}
+              > */}
+            <div>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                getPopupContainer={() => dropdownContainerRef.current}
+                trigger={["click"]}
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space
+                    style={{
+                      border: "1px solid black",
+                      padding: "8px 20px",
+                      borderRadius: "50px",
+                      display: "flex",
+                      color: "black",
+                      alignItems: "center",
+                    }}
+                  >
+                    <FaRegUserCircle className="fs-4" />
+                    Tài khoản
+                  </Space>
+                </a>
+              </Dropdown>
+              <div
+                ref={dropdownContainerRef}
+                style={{ zIndex: 9999999999999 }}
+              />
+
+              <Modal
+                // title={modalType === "register" ? "Đăng ký" : "Đăng nhập"}
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+                centered
+                style={{ top: 0, zIndex: 10000 }}
+              >
+                <Form
+                  name={modalType}
+                  initialValues={{ remember: true }}
+                  onFinish={(values) => console.log(values)}
+                >
+                  {modalType === "register" && (
+                    <>
+                      <div className="d-flex flex-column justify-content-center align-item-center">
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <img src={icon} width={70} alt="" />
+                        </div>
+                        <span className="text-center fs-2 fw-bold mt-2">
+                          Đăng ký tài khoản mới
+                        </span>
+                        <p className="text-center">
+                          Đã có tài khoản ?{" "}
+                          <span
+                            style={{ color: "red" }}
+                            onClick={() => handleMenuClick("login")}
+                          >
+                            Đăng nhập
+                          </span>
+                        </p>
+                      </div>
+                      <Form.Item
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Username!",
+                          },
+                        ]}
+                      >
+                        <Input className="p-3" placeholder="Email" />
+                      </Form.Item>
+                      <Form.Item
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          className="p-3"
+                          placeholder="Password"
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        name="confirmPassword"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Email!",
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          className="p-3"
+                          placeholder="ConfirmPassword"
+                        />
+                      </Form.Item>
+                    </>
+                  )}
+                  {modalType === "login" && (
+                    <>
+                      <div className="d-flex flex-column justify-content-center align-item-center">
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <img src={icon} width={70} alt="" />
+                        </div>
+                        <span className="text-center fs-2 fw-bold mt-2">
+                          Đăng nhập tài khoản
+                        </span>
+                        <p className="text-center">
+                          Chưa có tài khoản ?{" "}
+                          <span
+                            style={{ color: "red" }}
+                            onClick={() => handleMenuClick("register")}
+                          >
+                            Đăng ký
+                          </span>
+                        </p>
+                      </div>
+                      <Form.Item
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Username!",
+                          },
+                        ]}
+                      >
+                        <Input className="p-3" placeholder="Email" />
+                      </Form.Item>
+                      <Form.Item
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your Password!",
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          className="p-3"
+                          placeholder="Password"
+                        />
+                      </Form.Item>
+                    </>
+                  )}
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ width: "100%" }}
+                      className="p-4"
+                    >
+                      {modalType === "register" ? "Đăng ký" : "Đăng nhập"}
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
             </div>
           </div>
+          {/* </div> */}
         </div>
 
         {location.pathname !== "/post" && (
