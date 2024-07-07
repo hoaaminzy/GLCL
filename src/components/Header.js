@@ -15,6 +15,7 @@ import icon from "../images/icon.png";
 import { Link, useLocation } from "react-router-dom";
 import Filter1 from "./Filter1";
 import Filter2 from "./Filter2";
+import Filter3 from "./Filter3";
 const Header = () => {
   const dropdownContainerRef = useRef(null);
   const items = [
@@ -73,7 +74,7 @@ const Header = () => {
   }, []);
 
   const click1 = () => {
-    setActiveComponent("Filter1");
+    setActiveComponent("Filter3");
     setName("Giao lưu");
   };
 
@@ -82,7 +83,7 @@ const Header = () => {
     setName("Sân đấu");
   };
   const click3 = () => {
-    // setActiveComponent("Filter2");
+    setActiveComponent("Filter1");
     setName("Trao đổi");
   };
   return (
@@ -447,6 +448,7 @@ const Header = () => {
           <>
             {activeComponent === "Filter1" && <Filter1 />}
             {activeComponent === "Filter2" && <Filter2 />}
+            {activeComponent === "Filter3" && <Filter3 />}
           </>
         )}
       </div>

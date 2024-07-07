@@ -60,7 +60,7 @@ const Start = () => {
               className="text-white"
               style={{ fontWeight: "bold", fontSize: "60px" }}
             >
-              GiaoLuuCauLong.com
+              GiaoLuuCauLong.vn
             </span>
             <p className="text-white fs-4">
               Tìm kiếm cơ hội giao lưu cầu lông gần bạn

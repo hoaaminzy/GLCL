@@ -18,6 +18,7 @@ const BadmintonCourt = ({ idName }) => {
       name: "Tuyển giao lưu 1",
       address:
         "Sân THCS Thanh Xuân Nam - Cuối ngõ 214 Nguyễn Xiển, P. Thanh Xuân Nam, Q. Thanh Xuân, Hà Nội",
+      city: "Hà Nội",
       calendarNow: "02/07/2024, 19:30 - 19:30",
       calendar: "Lặp lại hàng tuần (T3, T5, CN)",
       apply: "3 người (Nam)",
@@ -39,6 +40,7 @@ const BadmintonCourt = ({ idName }) => {
       price: "100.000",
       name: "Tuyển giao lưu 2",
       address: "Sân THCS Thanh Xuân Nam - Đà Nẵng",
+      city: "Đà Nẵng",
       calendarNow: "02/07/2024, 19:30 - 19:30",
       calendar: "Lặp lại hàng tuần (T3, T5, CN)",
       apply: "1 người (Nữ)",
@@ -60,6 +62,7 @@ const BadmintonCourt = ({ idName }) => {
       price: "500.000",
       name: "Tuyển giao lưu 3",
       address: "Sân THCS Thanh Xuân Nam - Cuối ngõ 214 Nguyễn Xiển, Sài Gòn",
+      city: "Đà Nẵng",
       calendarNow: "02/07/2024, 19:30 - 19:30",
       calendar: "Lặp lại hàng tuần (T3, T5, CN)",
       apply: "3 người (Nam)",
@@ -82,6 +85,7 @@ const BadmintonCourt = ({ idName }) => {
       name: "Tuyển giao lưu 1",
       address:
         "Sân THCS Thanh Xuân Nam - Cuối ngõ 214 Nguyễn Xiển, P. Thanh Xuân Nam, Q. Thanh Xuân, Hà Nội",
+      city: "Hà Nội",
       calendarNow: "02/07/2024, 19:30 - 19:30",
       calendar: "Lặp lại hàng tuần (T3, T5, CN)",
       apply: "3 người (Nam)",
@@ -103,6 +107,7 @@ const BadmintonCourt = ({ idName }) => {
       price: "100.000",
       name: "Tuyển giao lưu 2",
       address: "Sân THCS Thanh Xuân Nam - Đà Nẵng",
+      city: "Đà Nẵng",
       calendarNow: "02/07/2024, 19:30 - 19:30",
       calendar: "Lặp lại hàng tuần (T3, T5, CN)",
       apply: "1 người (Nữ)",
@@ -124,6 +129,7 @@ const BadmintonCourt = ({ idName }) => {
       price: "500.000",
       name: "Tuyển giao lưu 3",
       address: "Sân THCS Thanh Xuân Nam - Cuối ngõ 214 Nguyễn Xiển, Sài Gòn",
+      city: "Sài Gòn",
       calendarNow: "02/07/2024, 19:30 - 19:30",
       calendar: "Lặp lại hàng tuần (T3, T5, CN)",
       apply: "3 người (Nam)",
@@ -140,13 +146,21 @@ const BadmintonCourt = ({ idName }) => {
     },
   ];
   const filterType = data.filter((item) => item.type === idName);
+
   return (
     <div>
       <Row>
         <Col sm={8}>
           <div className="d-flex flex-column gap-3">
-            <strong>Một vài sản phẩm</strong>
-            {idName === "traodoi" ? <Product /> : ""}
+            {idName === "traodoi" ? (
+              <>
+                <strong>Một vài sản phẩm</strong>
+
+                <Product />
+              </>
+            ) : (
+              ""
+            )}
 
             <strong>Tìm thấy {filterType.length} hoạt động</strong>
 

@@ -2,14 +2,15 @@ import React from "react";
 import { Select } from "antd";
 
 const Filter2 = () => {
+const handleChange = () => {}
   return (
     <div className="d-flex gap-3 pt-4">
       <Select
-        showSearch
-        placeholder="Thành Phố"
-        filterOption={(input, option) =>
-          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-        }
+         placeholder="Tình trạng"
+         style={{
+           width: "max-content",
+         }}
+         onChange={handleChange}
         options={[
           { value: "1", label: "Hồ Chí Minh" },
           { value: "2", label: "Hà Nội" },
