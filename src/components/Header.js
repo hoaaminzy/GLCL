@@ -107,7 +107,7 @@ const Header = () => {
             <Link to="/">
               <div style={{ color: "white" }} className="d-flex gap-2">
                 <span className="text-black fs-4">GiaoLưuCầuLông</span>
-                <img src={icon} style={{ width: "40px" }} alt="icon" />
+                <img src={icon} style={{ width: "40px", color:'red !important' }} alt="icon" />
               </div>
             </Link>
           </div>
