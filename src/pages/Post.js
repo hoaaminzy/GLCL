@@ -7,6 +7,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
+// import { delImg, resetImages, uploadImg } from "../features/upload/uploadSlice";
+// import { message, Upload } from "antd";
 const { RangePicker: TimeRangePicker } = TimePicker;
 const { TextArea } = Input;
 
@@ -113,7 +115,6 @@ const Post = () => {
                     value={formik.values.location}
                     onChange={(e) => {
                       formik.handleChange("location")(e);
-                      console.log("Địa chỉ sân:", e.target.value);
                     }}
                     onBlur={formik.handleBlur("location")}
                     className="form-control"
@@ -126,7 +127,6 @@ const Post = () => {
                     value={formik.values.title}
                     onChange={(e) => {
                       formik.handleChange("title")(e);
-                      console.log("Tiêu đề:", e.target.value);
                     }}
                     onBlur={formik.handleBlur("title")}
                     className="form-control"
@@ -139,7 +139,6 @@ const Post = () => {
                     value={formik.values.description}
                     onChange={(e) => {
                       formik.handleChange("description")(e);
-                      console.log("Mô tả chi tiết:", e.target.value);
                     }}
                     onBlur={formik.handleBlur("description")}
                     placeholder="Mô tả chi tiết"
@@ -160,7 +159,6 @@ const Post = () => {
                     value={formik.values.countct}
                     onChange={(value) => {
                       formik.setFieldValue("countct", value);
-                      console.log("Số lượng thành viên:", value);
                     }}
                     style={{ width: "100%" }}
                   />
@@ -169,7 +167,6 @@ const Post = () => {
                     value={formik.values.namnu}
                     onChange={(value) => {
                       formik.setFieldValue("namnu", value);
-                      console.log("Giới tính:", value);
                     }}
                     options={option1}
                     style={{ border: "none", width: "100%" }}
@@ -181,7 +178,6 @@ const Post = () => {
                     value={formik.values.minTrinhDo}
                     onChange={(value) => {
                       formik.setFieldValue("minTrinhDo", value);
-                      console.log("Trình độ tối thiểu:", value);
                     }}
                     options={options}
                     style={{ border: "none", width: "100%" }}
@@ -191,7 +187,6 @@ const Post = () => {
                     value={formik.values.maxTrinhDo}
                     onChange={(value) => {
                       formik.setFieldValue("maxTrinhDo", value);
-                      console.log("Trình độ tối đa:", value);
                     }}
                     options={options}
                     style={{ border: "none", width: "100%" }}
@@ -206,7 +201,6 @@ const Post = () => {
                       format={dateFormat}
                       onChange={(date, dateString) => {
                         formik.setFieldValue("dateStart.date", dateString);
-                        console.log("Ngày bắt đầu:", dateString);
                       }}
                       className="form-control"
                     />
@@ -220,8 +214,6 @@ const Post = () => {
                           "dateStart.timeEnd",
                           timeString[1]
                         );
-                        console.log("Thời gian bắt đầu:", timeString[0]);
-                        console.log("Thời gian kết thúc:", timeString[1]);
                       }}
                       className="form-control"
                     />
@@ -234,7 +226,6 @@ const Post = () => {
                       value={formik.values.priceNu}
                       onChange={(e) => {
                         formik.handleChange("priceNu")(e);
-                        console.log("Giá thuê nữ:", e.target.value);
                       }}
                       onBlur={formik.handleBlur("priceNu")}
                       className="form-control"
@@ -249,7 +240,6 @@ const Post = () => {
                       value={formik.values.priceNam}
                       onChange={(e) => {
                         formik.handleChange("priceNam")(e);
-                        console.log("Giá thuê nam:", e.target.value);
                       }}
                       onBlur={formik.handleBlur("priceNam")}
                       className="form-control"

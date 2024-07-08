@@ -6,18 +6,38 @@ import { Link } from "react-router-dom";
 
 const Start = () => {
   const [toggle, setToggle] = useState(false);
+  const [toggleMenuCity, setToggleMenuCity] = useState(false);
   const menuRef = useRef(null);
+  const menuCityRef = useRef(null);
 
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setToggle(false);
+    } else if (
+      menuCityRef.current &&
+      menuCityRef.current.contains(event.target)
+    ) {
+      setToggle(false);
+      setToggleMenuCity(true);
+    }
+  };
+
+  const handleClickOutside2 = (event) => {
+    if (menuCityRef.current && !menuCityRef.current.contains(event.target)) {
+      setToggleMenuCity(false);
+    } else if (menuRef.current && menuRef.current.contains(event.target)) {
+      setToggleMenuCity(false);
+      setToggle(true);
     }
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside2);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside2);
     };
   }, []);
 
@@ -46,9 +66,14 @@ const Start = () => {
             <img src={icon} style={{ width: "40px" }} alt="icon" />
           </div>
           <div>
-            <button className="btn btn-danger" style={{ borderRadius: "20px" }}>
-              Đăng tin
-            </button>
+            <Link to='/post'>
+              <button
+                className="btn btn-danger"
+                style={{ borderRadius: "20px" }}
+              >
+                Đăng tin
+              </button>
+            </Link>
           </div>
         </div>
         <div
@@ -82,7 +107,9 @@ const Start = () => {
               }}
             >
               <input
+                onClick={() => setToggleMenuCity(true)}
                 type="text"
+                defaultValue="Hà Nội"
                 style={{
                   outline: "none",
                   border: "none",
@@ -90,16 +117,16 @@ const Start = () => {
                   flex: 1,
                 }}
                 placeholder="Nhập địa điểm"
-                className="fs-4 px-3"
+                className="fs-5 px-3"
               />
               <div
                 style={{
                   flex: 1,
-                  borderLeft: "2px solid black",
+                  borderLeft: "2px solid #ccc",
                   paddingLeft: "20px",
                 }}
               >
-                <span className="fs-4" onClick={() => setToggle(true)}>
+                <span className="fs-5" onClick={() => setToggle(true)}>
                   Giao lưu
                 </span>
               </div>
@@ -171,12 +198,71 @@ const Start = () => {
                   </div>
                 </div>
               )}
+              {toggleMenuCity && (
+                <div
+                  ref={menuCityRef}
+                  style={{
+                    position: "absolute",
+                    bottom: "-300px",
+                    zIndex: 9999999999,
+                    background: "white",
+                    borderRadius: "20px",
+                    left: 0,
+                    right: "0px",
+                    padding: "20px",
+                    boxShadow: "#ccc 1px 1px 10px",
+                  }}
+                >
+                  <div className="d-flex flex-column gap-3">
+                    <span className="fs-4 fw-bold">Địa chỉ phổ biển</span>
+                    <div
+                      className="d-flex align-items-center gap-4"
+                      style={{
+                        border: "1px solid #ccc",
+                        padding: "15px",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      <FaMapMarkerAlt />
+                      <div className="d-flex flex-column justify-content-center">
+                        <span>Hà Nội</span>
+                      </div>
+                    </div>
+                    <div
+                      className="d-flex align-items-center gap-4"
+                      style={{
+                        border: "1px solid #ccc",
+                        padding: "15px",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      <FaMapMarkerAlt />
+                      <div className="d-flex flex-column justify-content-center">
+                        <span>Hồ Chí Minh</span>
+                      </div>
+                    </div>
+                    <div
+                      className="d-flex align-items-center gap-4"
+                      style={{
+                        border: "1px solid #ccc",
+                        padding: "15px",
+                        borderRadius: "15px",
+                      }}
+                    >
+                      <FaMapMarkerAlt />
+                      <div className="d-flex flex-column justify-content-center">
+                        <span>Các tỉnh thành khác</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <Link to="/home">
                 <div
                   style={{
                     background: "red",
-                    width: "60px",
-                    height: "60px",
+                    width: "50px",
+                    height: "50px",
                     borderRadius: "50%",
                   }}
                   className="d-flex justify-content-center align-items-center fs-3 text-white"

@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Post from "./pages/Post";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ProductDetails from "./pages/ProductDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +31,8 @@ function App() {
                 <Routes>
                   <Route path="/home/:id" element={<Home />} />
                   <Route path="/badminton/:id" element={<BadmintonDetails />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
+
                   <Route path="/post" element={<Post />} />
                 </Routes>
               </div>
