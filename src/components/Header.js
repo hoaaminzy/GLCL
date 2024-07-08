@@ -57,19 +57,41 @@ const Header = () => {
   const [activeComponent, setActiveComponent] = useState("Filter1");
   const [name, setName] = useState("Giao lưu");
   const [toggle, setToggle] = useState(false);
+  const [toggleMenuCity, setToggleMenuCity] = useState(false);
+
   const menuRef = useRef(null);
+  const menuCityRef = useRef(null);
+
   const location = useLocation();
 
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setToggle(false);
+    } else if (
+      menuCityRef.current &&
+      menuCityRef.current.contains(event.target)
+    ) {
+      setToggle(false);
+      setToggleMenuCity(true);
+    }
+  };
+
+  const handleClickOutside2 = (event) => {
+    if (menuCityRef.current && !menuCityRef.current.contains(event.target)) {
+      setToggleMenuCity(false);
+    } else if (menuRef.current && menuRef.current.contains(event.target)) {
+      setToggleMenuCity(false);
+      setToggle(true);
     }
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside2);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside2);
     };
   }, []);
 
@@ -107,7 +129,11 @@ const Header = () => {
             <Link to="/">
               <div style={{ color: "white" }} className="d-flex gap-2">
                 <span className="text-black fs-4">GiaoLưuCầuLông</span>
-                <img src={icon} style={{ width: "40px", color:'red !important' }} alt="icon" />
+                <img
+                  src={icon}
+                  style={{ width: "40px", color: "red !important" }}
+                  alt="icon"
+                />
               </div>
             </Link>
           </div>
@@ -133,6 +159,8 @@ const Header = () => {
                 }}
               >
                 <input
+                  onClick={() => setToggleMenuCity(true)}
+                  defaultValue="Hà Nội"
                   type="text"
                   style={{
                     outline: "none",
@@ -226,6 +254,66 @@ const Header = () => {
                           </div>
                         </div>
                       </Link>
+                    </div>
+                  </div>
+                )}
+                {toggleMenuCity && (
+                  <div
+                    ref={menuCityRef}
+                    style={{
+                      position: "absolute",
+                      bottom: "-300px",
+                      zIndex: 9999999999,
+                      background: "white",
+                      borderRadius: "20px",
+                      right: "130px",
+
+                      left: 0,
+                      padding: "20px",
+                      boxShadow: "#ccc 1px 1px 10px",
+                    }}
+                  >
+                    <div className="d-flex flex-column gap-3">
+                      <span className="fs-4 fw-bold">Địa chỉ phổ biển</span>
+                      <div
+                        className="d-flex align-items-center gap-4"
+                        style={{
+                          border: "1px solid #ccc",
+                          padding: "15px",
+                          borderRadius: "15px",
+                        }}
+                      >
+                        <FaMapMarkerAlt />
+                        <div className="d-flex flex-column justify-content-center">
+                          <span>Hà Nội</span>
+                        </div>
+                      </div>
+                      <div
+                        className="d-flex align-items-center gap-4"
+                        style={{
+                          border: "1px solid #ccc",
+                          padding: "15px",
+                          borderRadius: "15px",
+                        }}
+                      >
+                        <FaMapMarkerAlt />
+                        <div className="d-flex flex-column justify-content-center">
+                          <span>Hồ Chí Minh</span>
+                        </div>
+                      </div>
+                      <div
+                        className="d-flex align-items-center gap-4"
+                        style={{
+                          border: "1px solid #ccc",
+                          padding: "15px",
+                          borderRadius: "15px",
+                        }}
+                      >
+                        <FaMapMarkerAlt />
+                        <div className="d-flex flex-column justify-content-center">
+                          <span>Các tỉnh thành khác</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
